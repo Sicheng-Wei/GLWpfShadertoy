@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenTK;
+﻿using OpenTK;
+using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL4;
-using OpenTK.Wpf;
+using System.Threading.Tasks;
 
 namespace RealScaleSolar
 {
-    internal class Triangle
+    public class Triangle
     {
-        public static void Render()
+        public static async Task Render()
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             float[] vertices = {
@@ -53,6 +49,8 @@ namespace RealScaleSolar
 
             // Draw Triangle
             GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+
+            await Task.Delay(0);
         }
 
     }

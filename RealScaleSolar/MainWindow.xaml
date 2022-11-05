@@ -55,7 +55,11 @@
                     <ColumnDefinition Width="256"/>
                     <ColumnDefinition Width="1.0*"/>
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0" Background="#ffffff" Margin="4, 4, 4, 4"/>
+                
+                <!-- Dash Board -->
+                <Grid Grid.Column="0" Background="#ffffff" Margin="4, 4, 4, 4">
+                    <TextBlock x:Name="FrameRate"/>
+                </Grid>
                 <glWpfControl:GLWpfControl Grid.Column="1" x:Name="TriangleDisplay" Render="Triangle_OnRender" Margin="4, 4, 4, 4" />
             </Grid>
         </Border>

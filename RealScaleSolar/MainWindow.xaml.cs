@@ -1,8 +1,8 @@
-﻿using OpenTK.Wpf;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
+using OpenTK.Wpf;
 
 namespace RealScaleSolar
 {
@@ -16,13 +16,16 @@ namespace RealScaleSolar
             MaxHeight = SystemParameters.WorkArea.Height;
             MaxWidth = SystemParameters.WorkArea.Width;
             InitializeComponent();
-
-            var settings = new GLWpfControlSettings
+            Dispatcher.BeginInvoke(() =>
             {
-                MajorVersion = 4,
-                MinorVersion = 6
-            };
-            TriangleDisplay.Start(settings);
+                var settings = new GLWpfControlSettings
+                {
+                    MajorVersion = 4,
+                    MinorVersion = 6
+                };
+                TriangleDisplay.Start(settings);
+            });
+            
         }
 
         private static bool Locked = true;
@@ -84,9 +87,9 @@ namespace RealScaleSolar
             Process.GetCurrentProcess().Kill();
         }
 
-        private void Triangle_OnRender(TimeSpan timeSpan)
+        private async void Triangle_OnRender(TimeSpan timeSpan)
         {
-            Triangle.Render();
+            await Triangle.Render();
         }
     }
 }

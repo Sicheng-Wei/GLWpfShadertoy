@@ -40,7 +40,7 @@
                     Click="Window_MouseClickMinim"/>
                 <Button x:Name="Btn_Resiz" Content="□" FontSize="16"
                     Style="{StaticResource Button_Menu}"
-                    Click="Window_MouseClickResiz"/>
+                    Click="Window_MouseClickResiz" Cursor="Hand"/>
                 <Button x:Name="Btn_Close" Content="×"
                     Style="{StaticResource Button_Menu}"
                     Click="Window_MouseClickClose"/>
@@ -60,7 +60,8 @@
                 <Grid Grid.Column="0" Background="#ffffff" Margin="4, 4, 4, 4">
                     <TextBlock x:Name="FrameRate"/>
                 </Grid>
-                <glWpfControl:GLWpfControl Grid.Column="1" x:Name="TriangleDisplay" Render="Triangle_OnRender" Margin="4, 4, 4, 4" />
+                <glWpfControl:GLWpfControl Grid.Column="1" x:Name="GLScreen" Render="Screen_OnRender" Margin="4, 4, 4, 4" />
+                <TextBlock Grid.Column="1" x:Name="GLScreenTime" Width="100" Height="20" Background="#c1cbd7" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0, 0, 4, 4"/> 
             </Grid>
         </Border>
 

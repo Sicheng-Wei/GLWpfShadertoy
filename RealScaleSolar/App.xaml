@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:RealScaleSolar"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        
+
         <!-- Window Frame Button -->
         <Style x:Key="Button_Menu" TargetType="{x:Type Button}">
             <Setter Property="Width" Value="45" />

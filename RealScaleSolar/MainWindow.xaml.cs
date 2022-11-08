@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
+using System.Threading;
+using System.Threading.Tasks;
 using OpenTK.Wpf;
 
 namespace RealScaleSolar
@@ -15,32 +17,32 @@ namespace RealScaleSolar
         {
             MaxHeight = SystemParameters.WorkArea.Height;
             MaxWidth = SystemParameters.WorkArea.Width;
+            StartTick = DateTime.Now.Ticks;
             InitializeComponent();
-            Dispatcher.BeginInvoke(() =>
-            {
-                var settings = new GLWpfControlSettings
-                {
-                    MajorVersion = 4,
-                    MinorVersion = 6
-                };
-                TriangleDisplay.Start(settings);
-            });
             
+            var settings = new GLWpfControlSettings
+            {
+                MajorVersion = 4,
+                MinorVersion = 6,
+            };
+            GLScreen.Start(settings);
         }
 
         private static bool Locked = true;
+        private static float[] GLScreenSize = { 0.0f, 0.0f };
+        private static long StartTick;
 
         /* 窗口基础操作 */
 
         // 可拖动
         private void Window_MouseLeftButtonDrag(object sender, MouseButtonEventArgs e)
-        {
-            Point dragArea = e.GetPosition(FuncDock);
-            if (dragArea.Y < 0)
             {
-                DragMove();
+                Point dragArea = e.GetPosition(FuncDock);
+                if (dragArea.Y < 0)
+                {
+                    DragMove();
+                }
             }
-        }
 
         // 固定窗口大小
         private void Window_MouseClickLocke(object sender, RoutedEventArgs e)
@@ -80,6 +82,7 @@ namespace RealScaleSolar
             }
         }
 
+
         // 关闭窗口
         private void Window_MouseClickClose(object sender, RoutedEventArgs e)
         {
@@ -87,9 +90,36 @@ namespace RealScaleSolar
             Process.GetCurrentProcess().Kill();
         }
 
-        private async void Triangle_OnRender(TimeSpan timeSpan)
+        private void Screen_OnRender(TimeSpan timeSpan)
         {
-            await Triangle.Render();
+            GLScreenSize[0] = GLScreen.FrameBufferWidth;
+            GLScreenSize[1] = GLScreen.FrameBufferHeight;
+
+            //Thread GLThread = new Thread(() =>
+            //    {
+            //        float iTime = (DateTime.Now.Ticks - StartTick) / 10000000f;
+            //        Application.Current.Dispatcher.BeginInvoke(
+            //            System.Windows.Threading.DispatcherPriority.Normal,
+            //            new Action(() =>
+            //            {
+            //                GLSLPort.Render(GLScreenSize, iTime);
+            //                FrameRate.Text = iTime.ToString("00000.00000");
+            //            })
+            //        );
+            //    }
+            //);
+            //GLThread.Start();
+
+            Dispatcher.Invoke(
+                new Action(
+                    delegate
+                    {
+                        float iTime = (DateTime.Now.Ticks - StartTick) / 10000000f;
+                        GLSLPort.Render(GLScreenSize, iTime);
+                        FrameRate.Text = iTime.ToString("00000.00000");
+                    }
+                )
+            );
         }
     }
 }

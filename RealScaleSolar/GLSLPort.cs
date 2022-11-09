@@ -58,6 +58,11 @@ namespace RealScaleSolar
 
             // Draw Canvas
             GL.DrawArrays(PrimitiveType.TriangleFan, 0, 4);
+            
+            // Clear Buffers
+            GL.DeleteVertexArray(VAO);
+            GL.DeleteBuffer(VBO);
+            GL.DeleteProgram(shaderProgram);
         }
     }
 }

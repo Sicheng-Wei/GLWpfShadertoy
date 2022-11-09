@@ -53,6 +53,11 @@ namespace RealScaleSolar
 
             // Draw Triangle
             GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+            
+            // Clear Buffers
+            GL.DeleteVertexArray(VAO);
+            GL.DeleteBuffer(VBO);
+            GL.DeleteProgram(shaderProgram);
         }
 
     }

@@ -94,32 +94,9 @@ namespace RealScaleSolar
         {
             GLScreenSize[0] = GLScreen.FrameBufferWidth;
             GLScreenSize[1] = GLScreen.FrameBufferHeight;
-
-            //Thread GLThread = new Thread(() =>
-            //    {
-            //        float iTime = (DateTime.Now.Ticks - StartTick) / 10000000f;
-            //        Application.Current.Dispatcher.BeginInvoke(
-            //            System.Windows.Threading.DispatcherPriority.Normal,
-            //            new Action(() =>
-            //            {
-            //                GLSLPort.Render(GLScreenSize, iTime);
-            //                FrameRate.Text = iTime.ToString("00000.00000");
-            //            })
-            //        );
-            //    }
-            //);
-            //GLThread.Start();
-
-            Dispatcher.Invoke(
-                new Action(
-                    delegate
-                    {
-                        float iTime = (DateTime.Now.Ticks - StartTick) / 10000000f;
-                        GLSLPort.Render(GLScreenSize, iTime);
-                        FrameRate.Text = iTime.ToString("00000.00000");
-                    }
-                )
-            );
+            float iTime = (DateTime.Now.Ticks - StartTick) / 10000000f;
+            GLSLPort.Render(GLScreenSize, iTime);
+            FrameRate.Text = iTime.ToString("00000.00000");
         }
     }
 }

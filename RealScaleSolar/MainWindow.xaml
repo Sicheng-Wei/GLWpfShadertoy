@@ -1,0 +1,78 @@
+﻿<!--
+    Coder & Implementation: Sicheng Wei
+    Date: 2022/11/4
+    Email: 2495665501@qq.com
+           sichengwei@hust.edu.cn (expired in 2023)
+    Institution: Huazhong University of Science and Technology
+    UI Reference: Microsoft Visual Studio 2022
+-->
+
+<Window x:Class="RealScaleSolar.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:glWpfControl="clr-namespace:OpenTK.Wpf;assembly=GLWpfControl"
+    ResizeMode="NoResize"
+    AllowsTransparency="True" WindowStyle="None" Padding="100" WindowStartupLocation="CenterScreen"
+    Height="720"
+    Width="1280"
+    BorderBrush="#525252" BorderThickness="1.5" Background="#5d6b99"
+    MouseLeftButtonDown="Window_MouseLeftButtonDrag"
+    >
+
+    <!-- General Page -->
+    <Grid>
+
+        <!-- Distribute Rows -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="4.0*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Dock -->
+        <Border Grid.Row="0" Background="#ccd5f0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="Btn_Locke" Content="🔒"
+                    Style="{StaticResource Button_Menu}"
+                    Click="Window_MouseClickLocke"/>
+                <Button x:Name="Btn_Minim" Content="—"
+                    Style="{StaticResource Button_Menu}"
+                    Click="Window_MouseClickMinim"/>
+                <Button x:Name="Btn_Resiz" Content="□" FontSize="16"
+                    Style="{StaticResource Button_Menu}"
+                    Click="Window_MouseClickResiz" Cursor="Hand"/>
+                <Button x:Name="Btn_Close" Content="×"
+                    Style="{StaticResource Button_Menu}"
+                    Click="Window_MouseClickClose"/>
+            </StackPanel>
+        </Border>
+
+
+        <!-- Function Dock -->
+        <Border x:Name="FuncDock" Grid.Row="1" Background="#5d6b99" Margin="8, 8, 8, 8">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="256"/>
+                    <ColumnDefinition Width="1.0*"/>
+                </Grid.ColumnDefinitions>
+                
+                <!-- Dash Board -->
+                <Grid Grid.Column="0" Background="#ffffff" Margin="4, 4, 4, 4">
+                    <TextBlock x:Name="FrameRate"/>
+                </Grid>
+                <glWpfControl:GLWpfControl Grid.Column="1" x:Name="GLScreen"
+                                           Render="Screen_OnRender" 
+                                           KeyDown="Handle_KeyDown" 
+                                           KeyUp="Handle_KeyUp"
+                                           Margin="4, 4, 4, 4" />
+                <TextBlock Grid.Column="1" x:Name="GLScreenTime" Width="100" Height="20" Background="#c1cbd7" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0, 0, 4, 4"/> 
+            </Grid>
+        </Border>
+
+        <!-- Buttom Dock -->
+        <Border Grid.Row="2" Background="#40508d">
+                <TextBlock Text="★  Designed by Sicheng Wei    " VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#ffffff"/>
+        </Border>
+    </Grid>
+
+</Window>

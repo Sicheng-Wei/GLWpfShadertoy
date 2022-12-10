@@ -6,60 +6,98 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <PlatformTarget>x86</PlatformTarget>
-    <ApplicationIcon>ResBitmap\NASA-Logo-1975.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\ResBitmap\NASA-Logo-1975.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="ResBitmap\0_Sun\Surface.jpg" />
-    <None Remove="ResBitmap\1_Mercury.jpg" />
-    <None Remove="ResBitmap\2_Venus\Atmosphere.jpg" />
-    <None Remove="ResBitmap\2_Venus\Surface.jpg" />
-    <None Remove="ResBitmap\3_Earth\Clouds.jpg" />
-    <None Remove="ResBitmap\3_Earth\DayMap.jpg" />
-    <None Remove="ResBitmap\3_Earth\NightMap.jpg" />
-    <None Remove="ResBitmap\3_Earth\NormalMap.tif" />
-    <None Remove="ResBitmap\3_Earth\Sat\Moon.jpg" />
-    <None Remove="ResBitmap\4_Mars.jpg" />
-    <None Remove="ResBitmap\5_Jupiter.jpg" />
-    <None Remove="ResBitmap\6_Saturn\6_Saturn.jpg" />
-    <None Remove="ResBitmap\6_Saturn\6_Saturn_Ring.png" />
-    <None Remove="ResBitmap\7_Uranus.jpg" />
-    <None Remove="ResBitmap\8_Neptune.jpg" />
-    <None Remove="ResBitmap\Skybox\skybox_milky_way.jpg" />
-    <None Remove="ResBitmap\Skybox\skybox_stars.jpg" />
+    <Compile Remove="ResBitmap\**" />
+    <EmbeddedResource Remove="ResBitmap\**" />
+    <None Remove="ResBitmap\**" />
+    <Page Remove="ResBitmap\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="ResBitmap\NASA-Logo-1975.ico" />
+    <Content Include="Resources\ResBitmap\NASA-Logo-1975.ico" />
   </ItemGroup>
 
 
   <ItemGroup>
+    <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
     <PackageReference Include="OpenTK" Version="4.7.5" />
     <PackageReference Include="OpenTK.GLWpfControl" Version="4.2.2" />
+    <PackageReference Include="StbImageSharp" Version="2.27.13" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="ResBitmap\0_Sun\Surface.jpg" />
-    <Resource Include="ResBitmap\1_Mercury.jpg" />
-    <Resource Include="ResBitmap\2_Venus\Atmosphere.jpg" />
-    <Resource Include="ResBitmap\2_Venus\Surface.jpg" />
-    <Resource Include="ResBitmap\3_Earth\Sat\Moon.jpg" />
-    <Resource Include="ResBitmap\3_Earth\Clouds.jpg" />
-    <Resource Include="ResBitmap\3_Earth\DayMap.jpg" />
-    <Resource Include="ResBitmap\3_Earth\NightMap.jpg" />
-    <Resource Include="ResBitmap\3_Earth\NormalMap.tif" />
-    <Resource Include="ResBitmap\4_Mars.jpg" />
-    <Resource Include="ResBitmap\5_Jupiter.jpg" />
-    <Resource Include="ResBitmap\6_Saturn\6_Saturn.jpg" />
-    <Resource Include="ResBitmap\6_Saturn\6_Saturn_Ring.png" />
-    <Resource Include="ResBitmap\7_Uranus.jpg" />
-    <Resource Include="ResBitmap\8_Neptune.jpg" />
-    <Resource Include="ResBitmap\Skybox\skybox_milky_way.jpg" />
-    <Resource Include="ResBitmap\Skybox\skybox_stars.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <None Update="Resources\ResBitmap\0_Sun\Surface.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResBitmap\1_Mercury\Surface.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResBitmap\2_Venus\Atmosphere.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResBitmap\2_Venus\Surface.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResBitmap\3_Earth\Clouds.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResBitmap\3_Earth\DayMap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResBitmap\3_Earth\NightMap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResBitmap\3_Earth\NormalMap.tif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResBitmap\3_Earth\Sat\Moon.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResBitmap\4_Mars\Surface.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResBitmap\5_Jupiter\Surface.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResBitmap\6_Saturn\Ring.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResBitmap\6_Saturn\Surface.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResBitmap\7_Uranus\Surface.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResBitmap\8_Neptune\Surface.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResBitmap\Skybox\nx.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResBitmap\Skybox\ny.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResBitmap\Skybox\nz.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResBitmap\Skybox\px.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResBitmap\Skybox\py.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResBitmap\Skybox\pz.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResBitmap\Skybox\skybox_milky_way.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\ResBitmap\Skybox\skybox_stars.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Shader\Shader.frag">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

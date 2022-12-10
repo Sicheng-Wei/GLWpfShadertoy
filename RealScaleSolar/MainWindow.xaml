@@ -60,7 +60,11 @@
                 <Grid Grid.Column="0" Background="#ffffff" Margin="4, 4, 4, 4">
                     <TextBlock x:Name="FrameRate"/>
                 </Grid>
-                <glWpfControl:GLWpfControl Grid.Column="1" x:Name="GLScreen" Render="Screen_OnRender" Margin="4, 4, 4, 4" />
+                <glWpfControl:GLWpfControl Grid.Column="1" x:Name="GLScreen"
+                                           Render="Screen_OnRender" 
+                                           KeyDown="Handle_KeyDown" 
+                                           KeyUp="Handle_KeyUp"
+                                           Margin="4, 4, 4, 4" />
                 <TextBlock Grid.Column="1" x:Name="GLScreenTime" Width="100" Height="20" Background="#c1cbd7" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0, 0, 4, 4"/> 
             </Grid>
         </Border>

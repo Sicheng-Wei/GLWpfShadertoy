@@ -1,151 +1,62 @@
-﻿/** Modified From: https://www.shadertoy.com/view/3sc3z4 **/
+﻿#version 460 core
 
-#version 460 core
+// CONSTANTS
+const float PI = 3.1415926535;
 
-in vec2 texCoord;
+// WPF MAINWINDOW MACRO
 uniform vec2 iResolution;
 uniform float iTime;
+uniform vec3 iMouse;
 out vec4 fragColor;
 vec2 fragCoord = gl_FragCoord.xy;
 
-#define PI 3.14159265359
-#define TWOPI 6.28318530718
+// VIEW TRANSFORMATION UNIFORMS
+uniform mat4 viewMatrix;
 
-#define AVERAGECOUNT 200
-#define MAX_BOUNCE 32
-#define SPHERECOUNT 6
+// VERTEX SHADER INTERFACE
+in vec2 texCoord;
 
-struct HitData
+// TEXTURES
+uniform sampler2D iJupitex;
+
+// Sphere Intersect [Shadertoy Link (MIT License): https://www.shadertoy.com/view/XdBGzd]
+float iSphere( in vec3 ro, in vec3 rd, in vec4 sph )
 {
-    float rayLength;
-    vec3 normal;
-};
-
-const vec4 AllSpheres[SPHERECOUNT]=vec4[SPHERECOUNT](
-    vec4(0.0,0.0,0.0,2.0),//sphere A
-    vec4(0.0,0.0,-1.0,2.0),//sphere B
-    vec4(0.0,-1002.0,0.0,1000.0),//ground
-    vec4(0.0,0.0,+1002,1000.0),//back wall
-    vec4(-1004.0,0.0,0.0,1000.0),//left wall    
-    vec4(+1004.0,0.0,0.0,1000.0)//right wall
-);
-
-
-
-float raySphereIntersect(vec3 r0, vec3 rd, vec3 s0, float sr) {
-    float a = dot(rd, rd);
-    vec3 s0_r0 = r0 - s0;
-    float b = 2.0 * dot(rd, s0_r0);
-    float c = dot(s0_r0, s0_r0) - (sr * sr);
-    if (b * b - 4.0 * a * c < 0.0) {
-        return -1.0;
-    }
-    return (-b - sqrt((b * b) - 4.0 * a * c)) / (2.0 * a);
+	vec3 oc = ro - sph.xyz;
+	float b = dot( oc, rd );
+	float c = dot( oc, oc ) - sph.w * sph.w;
+	float h = b * b - c;
+	if( h < 0.0 ) return -1.0;
+	return -b - sqrt( h );
 }
 
-HitData AllObjectsRayTest(vec3 rayPos, vec3 rayDir)
+vec3 map(vec3 p)
 {
-    HitData hitData;
-    hitData.rayLength = 9999.0;
-    for(int i = 0; i < SPHERECOUNT; i++)
-    {
-        vec3 sphereCenter = AllSpheres[i].xyz;
-        float sphereRadius = AllSpheres[i].w;
-        
-        if(i == 0)
-        {
-            float t = fract(iTime * 0.7);
-            t = -4.0 * t * t + 4.0 * t;
-            sphereCenter.y += t * 0.7;
-            
-            sphereCenter.x += sin(iTime) * 2.0;
-            sphereCenter.z += cos(iTime) * 2.0;
-        }
-             
-        if(i == 1)
-        {
-            float t = fract(iTime*0.47);
-            t = -4.0 * t * t + 4.0 * t;
-            sphereCenter.y += t * 1.7;
-            
-            sphereCenter.x += sin(iTime+3.14) * 2.0;
-            sphereCenter.z += cos(iTime+3.14) * 2.0;
-        }             
-                
-        float resultRayLength = raySphereIntersect(rayPos,rayDir,sphereCenter,sphereRadius);
-        if(resultRayLength < hitData.rayLength && resultRayLength > 0.001)
-        {
-            hitData.rayLength = resultRayLength;
-            vec3 hitPos = rayPos + rayDir * resultRayLength;
-            hitData.normal = normalize(hitPos - sphereCenter);
-        }
-    }
-    
-    return hitData;
+    float lat = - 90. + acos(p.y / length(p)) * 180./ PI;
+    float lon = + atan(p.x, p.z) * 180. / PI;
+    vec2 uv = vec2(lon / 360., lat / 180.) + 0.5;
+    return texture(iJupitex, uv).rgb;
 }
 
-float rand01(float seed) { return fract(sin(seed)*43758.5453123); }
-
-vec3 randomInsideUnitSphere(vec3 rayDir,vec3 rayPos, float extraSeed)
+void texPlanet(vec3 planetSite, sampler2D planetTex)
 {
-    return vec3(rand01(iTime * (rayDir.x + rayPos.x + 0.357) * extraSeed),
-                rand01(iTime * (rayDir.y + rayPos.y + 16.35647) *extraSeed),
-                rand01(iTime * (rayDir.z + rayPos.z + 425.357) * extraSeed));
 }
 
-vec4 calculateFinalColor(vec3 cameraPos, vec3 cameraRayDir, float AAIndex)
+void main()
 {
-    vec3 finalColor = vec3(0.0);
-    float absorbMul = 1.0;
-    vec3 rayStartPos = cameraPos;
-    vec3 rayDir = cameraRayDir;
+    // Screen Normalization
+    vec2 iScreenNorm = (2. * fragCoord.xy - iResolution.xy) / iResolution.x;
     
-    float firstHitRayLength = -1.0;
-    
-    for(int i = 0; i < MAX_BOUNCE; i++)
-    {
-        HitData h = AllObjectsRayTest(rayStartPos + rayDir * 0.0001,rayDir);//+0.0001 to prevent ray already hit at start pos
-        
-        firstHitRayLength = firstHitRayLength < 0.0 ? h.rayLength : firstHitRayLength;
-        if(h.rayLength >= 9900.0)
-        {
-            vec3 skyColor = vec3(0.7,0.85,1.0);//hit nothing = hit sky color
-            finalColor = skyColor * absorbMul;
-            break;
-        }   
-               
-        absorbMul *= 0.8;
-        rayStartPos = rayStartPos + rayDir * h.rayLength; 
-        rayDir = normalize(reflect(rayDir,h.normal) + randomInsideUnitSphere(rayDir,rayStartPos,AAIndex) * 0.3);       
-    }
-    
-    return vec4(finalColor,firstHitRayLength);
-}
+    // View Normalized Vector
+    mat3 iViewMatrix = mat3(viewMatrix);
+    vec3 camSite = viewMatrix[3].xyz;
+    vec3 camDir = normalize(iViewMatrix * vec3(30.0, iScreenNorm.y, iScreenNorm.x));
 
+    float dist = iSphere(camSite, camDir, vec4(50.0, 0, 0, 1));
 
-void main() {
-    vec2 uv = fragCoord/iResolution.xy;
-    
-    uv = uv * 2.0 - 1.0;
-    uv.x *= iResolution.x / iResolution.y;
-    vec3 cameraPos = vec3(0.0, 6.0,-25.0);//camera pos animation
-    vec3 cameraFocusPoint = vec3(0,0,0);//camera look target point animation
-    vec3 cameraDir = normalize(cameraFocusPoint - cameraPos);
-    
-    float fovTempMul = 0.2 ;
-    vec3 rayDir = normalize(cameraDir + vec3(uv,0) * fovTempMul);
-    
-    vec4 finalColor = vec4(0);
-    for(int i = 1; i <= AVERAGECOUNT; i++)
-    {
-        finalColor+= calculateFinalColor(cameraPos,rayDir, float(i));
+    fragColor = vec4(0);
+    if (dist >= 0.) {
+        vec3 q = camSite - vec3(50.0, 0, 0) + camDir * dist;
+        fragColor = vec4(map(q), 1.0);
     }
-    
-    finalColor = finalColor / float(AVERAGECOUNT); //brute force AA & denoise
-    finalColor.rgb = pow(finalColor.rgb,vec3(1.0/2.2)); //gamma correction
-    
-    float z = finalColor.w;
-    float cineShaderZ = pow(clamp(1.0 - max(0.0,z-21.0) * (1.0/6.0),0.0,1.0),2.0);
-    
-    fragColor = vec4(finalColor.rgb,cineShaderZ);
 }

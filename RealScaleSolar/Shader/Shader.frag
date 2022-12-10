@@ -40,6 +40,7 @@ vec3 map(vec3 p)
 
 void texPlanet(vec3 planetSite, sampler2D planetTex)
 {
+    
 }
 
 void main()
@@ -50,13 +51,13 @@ void main()
     // View Normalized Vector
     mat3 iViewMatrix = mat3(viewMatrix);
     vec3 camSite = viewMatrix[3].xyz;
-    vec3 camDir = normalize(iViewMatrix * vec3(30.0, iScreenNorm.y, iScreenNorm.x));
+    vec3 camDir = normalize(iViewMatrix * vec3(20.0, iScreenNorm.y, iScreenNorm.x));
 
-    float dist = iSphere(camSite, camDir, vec4(50.0, 0, 0, 1));
+    float dist = iSphere(camSite, camDir, vec4(50.0, 0.5, 0, 1));
 
     fragColor = vec4(0);
     if (dist >= 0.) {
-        vec3 q = camSite - vec3(50.0, 0, 0) + camDir * dist;
+        vec3 q = camSite - vec3(50.0, 0.5, 0) + camDir * dist;
         fragColor = vec4(map(q), 1.0);
     }
 }

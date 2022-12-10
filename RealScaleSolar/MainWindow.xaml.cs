@@ -19,14 +19,6 @@ namespace RealScaleSolar
         public Matrix4 viewMatrix;
     }
 
-
-
-    public struct GLSpherAngle
-    {
-        public float Theta;    //
-        public float Phi;      //
-    }
-
     public partial class MainWindow : Window
     {
         public static readonly float DT = 0.003f;
@@ -42,7 +34,7 @@ namespace RealScaleSolar
             CurrentGLState.iResolution = new float[2];
             CurrentGLState.iMouse = new float[2];
 
-            CurrentGLState.viewMatrix = Matrix4.CreateTranslation(0.0f, .0f, .0f);
+            CurrentGLState.viewMatrix = Matrix4.Identity;
 
             var settings = new GLWpfControlSettings
             {
@@ -160,14 +152,11 @@ namespace RealScaleSolar
         private void ViewUpdate()
         {
             //// Front & Back
-            //if (W) ViewTransform.StepTangent(CurrentGLState.camSite, CurrentGLState.camTang, true);
-            //if (S) ViewTransform.StepTangent(CurrentGLState.camSite, CurrentGLState.camTang, false);
-            
+
             //// Left & Right
-            //if (A) ViewTransform.StepNormal(CurrentGLState.camSite, CurrentGLState.camNorm, true);
-            //if (D) ViewTransform.StepNormal(CurrentGLState.camSite, CurrentGLState.camNorm, false);
-            
+
             //// CounterClk & Clk
+            if (Q) CurrentGLState.viewMatrix *= Matrix4.CreateRotationX(0.01f);
             //if (Q) ViewTransform.StepRotate(CurrentGLState.camNorm, true);
             //if (E) ViewTransform.StepRotate(CurrentGLState.camNorm, false);
         }

@@ -1,16 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Diagnostics;
-using System.Windows;
-using System.Windows.Input;
-using OpenTK.Wpf;
-using StbImageSharp;
-using OpenTK.Mathematics;
-using System.Windows.Data;
+﻿using System.Windows;
+
 
 namespace GLWpfShadertoy
 {
-    internal class wpfUI : Window
+    internal class WpfUI : Window
     {
         ///*** WPF Framework Operation ***/
         //private static bool Locked = true;

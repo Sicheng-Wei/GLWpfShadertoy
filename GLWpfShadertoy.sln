@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GLWpfShadertoy", "RealScaleSolar\GLWpfShadertoy.csproj", "{660F0472-0E5D-4BB3-9C55-2EE33FCFC0CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GLWpfShadertoy", "GLWpfShadertoy\GLWpfShadertoy.csproj", "{660F0472-0E5D-4BB3-9C55-2EE33FCFC0CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

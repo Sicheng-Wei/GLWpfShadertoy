@@ -6,7 +6,6 @@ using System.Windows.Input;
 using OpenTK.Wpf;
 using StbImageSharp;
 using OpenTK.Mathematics;
-using System.Windows.Data;
 
 namespace GLWpfShadertoy
 {

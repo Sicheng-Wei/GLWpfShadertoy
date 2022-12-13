@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Animation;
 
-namespace RealScaleSolar
+namespace GLWpfShadertoy
 {
     /// <summary>
     /// Interaction logic for App.xaml

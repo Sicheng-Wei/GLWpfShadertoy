@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using OpenTK.Graphics.OpenGL4;
 
-namespace RealScaleSolar
+namespace GLWpfShadertoy
 {
     public class GLSLPort
     {

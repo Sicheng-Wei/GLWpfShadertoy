@@ -1,7 +1,7 @@
-﻿<Application x:Class="RealScaleSolar.App"
+﻿<Application x:Class="GLWpfShadertoy.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:RealScaleSolar"
+             xmlns:local="clr-namespace:GLWpfShadertoy"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         

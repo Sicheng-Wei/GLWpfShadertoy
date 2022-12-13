@@ -8,7 +8,7 @@ using StbImageSharp;
 using OpenTK.Mathematics;
 using System.Windows.Data;
 
-namespace RealScaleSolar
+namespace GLWpfShadertoy
 {
     internal class wpfUI : Window
     {

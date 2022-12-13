@@ -82,15 +82,16 @@ namespace RealScaleSolar
             // Uniform Data Interaction
             GL.Uniform2(GL.GetUniformLocation(shaderProgram, "iResolution"),    
                         MainWindow.CurrentGLState.iResolution[0],
-                        MainWindow.CurrentGLState.iResolution[1]);      // Pass GLScreenSize as "uniform vec2 iResolution"            
+                        MainWindow.CurrentGLState.iResolution[1]);                  // Pass GLScreenSize as "uniform vec2 iResolution"            
 
             GL.Uniform1(GL.GetUniformLocation(shaderProgram, "iTime"),
-                        MainWindow.CurrentGLState.iTime);               // Pass TimeSpan as     "uniform float iTime"  
+                        MainWindow.CurrentGLState.iTime);                           // Pass TimeSpan as     "uniform float iTime"  
             
             GL.UniformMatrix4(GL.GetUniformLocation(shaderProgram, "viewMatrix"),
-                              false, ref MainWindow.CurrentGLState.viewMatrix);
+                              false, ref MainWindow.CurrentGLState.viewMatrix);     // Pass ViewMatrix as   "uniform mat4 viewMatrix"
 
-            GL.Uniform1(GL.GetUniformLocation(shaderProgram, "iJupitex"), planetTexture);
+            GL.Uniform1(GL.GetUniformLocation(shaderProgram, "iJupitex"),
+                        planetTexture);
 
         }
 

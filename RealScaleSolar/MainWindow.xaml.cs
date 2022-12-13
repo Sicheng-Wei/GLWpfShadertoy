@@ -22,29 +22,6 @@ namespace RealScaleSolar
 
     public partial class MainWindow : Window
     {
-        public static readonly float DT = 0.003f;
-
-        public MainWindow()
-        {
-            MaxHeight = SystemParameters.WorkArea.Height;
-            MaxWidth = SystemParameters.WorkArea.Width;
-            StartTick = DateTime.Now.Ticks;
-            InitializeComponent();
-
-            CurrentGLState.iInitialize = false;
-            CurrentGLState.iResolution = new float[2];
-            CurrentGLState.iMouse = new float[2];
-
-            CurrentGLState.viewMatrix = Matrix4.CreateTranslation(0.0f, 1.0f, 0.0f);
-
-            var settings = new GLWpfControlSettings
-            {
-                MajorVersion = 4,
-                MinorVersion = 6,
-            };
-            GLScreen.Start(settings);
-        }
-
         /*** WPF Framework Operation ***/
         private static bool Locked = true;
         
@@ -181,6 +158,27 @@ namespace RealScaleSolar
             if (e.Key == Key.D) D = false;
             if (e.Key == Key.Q) Q = false;
             if (e.Key == Key.E) E = false;
+        }
+
+        public MainWindow()
+        {
+            MaxHeight = SystemParameters.WorkArea.Height;
+            MaxWidth = SystemParameters.WorkArea.Width;
+            StartTick = DateTime.Now.Ticks;
+            InitializeComponent();
+
+            CurrentGLState.iInitialize = false;
+            CurrentGLState.iResolution = new float[2];
+            CurrentGLState.iMouse = new float[2];
+
+            CurrentGLState.viewMatrix = Matrix4.CreateTranslation(0.0f, 1.0f, 0.0f);
+
+            var settings = new GLWpfControlSettings
+            {
+                MajorVersion = 4,
+                MinorVersion = 6,
+            };
+            GLScreen.Start(settings);
         }
     }
 }

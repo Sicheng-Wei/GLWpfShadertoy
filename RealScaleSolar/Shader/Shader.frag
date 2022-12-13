@@ -53,11 +53,11 @@ void main()
     vec3 camSite = viewMatrix[3].xyz;
     vec3 camDir = normalize(iViewMatrix * vec3(20.0, iScreenNorm.y, iScreenNorm.x));
 
-    float dist = iSphere(camSite, camDir, vec4(50.0, 0.5, 0, 1));
+    float dist = iSphere(camSite, camDir, vec4(50.0, 0.0, 0, 1.0));
 
     fragColor = vec4(0);
     if (dist >= 0.) {
-        vec3 q = camSite - vec3(50.0, 0.5, 0) + camDir * dist;
+        vec3 q = camSite - vec3(50.0, 0.0, 0) + camDir * dist;
         fragColor = vec4(map(q), 1.0);
     }
 }

@@ -9,6 +9,5 @@ namespace RealScaleSolar
 
     internal class ViewTransform
     {
-        
     }
 }

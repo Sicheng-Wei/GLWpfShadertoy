@@ -6,8 +6,12 @@ namespace GLWpfShadertoy
     public class GLSLPort
     {
         private static int shaderProgram;   // Program ID
-        private static int vertexShader;    // Vertex Shader ID
-        private static int fragmentShader;  // Fragment Shader ID
+
+        private static int vertexShader;            // Vertex Shader ID
+        private static string vertexShaderSource;   //
+        private static int fragmentShader;          // Fragment Shader ID
+        private static string fragmentShaderSource; //
+
         private static int planetTexture;   // Texture IDs
 
         // Screen Parameter Allocate
@@ -24,6 +28,9 @@ namespace GLWpfShadertoy
         
         private static void GLInit(byte[] GLTexMap, int[] stats)
         {
+            // Clear Canvas
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+
             // VBO Binding & vertices to GPU Buffer
             VBO = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, VBO);
@@ -38,12 +45,12 @@ namespace GLWpfShadertoy
             GL.EnableVertexAttribArray(0);
 
             // Vertex Shader
-            string vertexShaderSource = File.ReadAllText("./Shader/Shader.vert");
+            vertexShaderSource = File.ReadAllText("./Shader/Shader.vert");
             vertexShader = GL.CreateShader(ShaderType.VertexShader);
             GL.ShaderSource(vertexShader, vertexShaderSource);
-
+            
             // Fragment Shader
-            string fragmentShaderSource = File.ReadAllText("./Shader/Shader.frag");
+            fragmentShaderSource = File.ReadAllText("./Shader/Shader.frag");
             fragmentShader = GL.CreateShader(ShaderType.FragmentShader);
             GL.ShaderSource(fragmentShader, fragmentShaderSource);
 
@@ -62,14 +69,14 @@ namespace GLWpfShadertoy
 
         public static void Render(byte[] GLTexMap, int[] stats)
         {
-            // Clear Canvas
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
             if (MainWindow.CurrentGLState.iInitialize == false)
             {
                 GLInit(GLTexMap, stats);
             }
-            
+            // GLInit(GLTexMap, stats);
+            GL.CompileShader(vertexShader);
+            GL.CompileShader(fragmentShader);
+
             // Draw Canvas
             GL.DrawArrays(PrimitiveType.TriangleFan, 0, 4);
 
@@ -78,7 +85,7 @@ namespace GLWpfShadertoy
             GL.AttachShader(shaderProgram, fragmentShader);
             GL.LinkProgram(shaderProgram);
             GL.UseProgram(shaderProgram);
-
+            
             // Uniform Data Interaction
             GL.Uniform2(GL.GetUniformLocation(shaderProgram, "iResolution"),    
                         MainWindow.CurrentGLState.iResolution[0],
@@ -92,7 +99,6 @@ namespace GLWpfShadertoy
 
             GL.Uniform1(GL.GetUniformLocation(shaderProgram, "iJupitex"),
                         planetTexture);
-
         }
 
         public static void Destroy()

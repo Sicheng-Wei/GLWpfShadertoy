@@ -21,9 +21,9 @@ namespace GLWpfShadertoy
 
     public partial class MainWindow : Window
     {
-        /*** WPF Framework Operation ***/
+        ///*** WPF Framework Operation ***///
         private static bool Locked = true;
-        
+
         // Window Draggable
         private void Window_MouseLeftButtonDrag(object sender, MouseButtonEventArgs e)
         {
@@ -79,10 +79,9 @@ namespace GLWpfShadertoy
             Process.GetCurrentProcess().Kill();
         }
 
-
-
-        /*** GLWpfControl Render ***/
         
+        /*** GLWpfControl Render ***/
+
         public static GLState CurrentGLState = new GLState();
         private static long StartTick;
         private static ImageResult image = ImageResult.FromStream(File.OpenRead("./Resources/ResBitmap/3_Earth/DayMap.jpg"), ColorComponents.RedGreenBlueAlpha);

@@ -64,6 +64,7 @@ void mainImage( )
     fragColor = vec4( 0 );
     if ( dist >= 0. ) {
       vec3 q = camSite - sphParams.xyz + camDir * dist;
-      fragColor = vec4( mapSphere( q ), 1. );
+      // fragColor = vec4( mapSphere( q ), 1. );
+      fragColor = vec4( 1., 1., 1., 1. );
     }
 }

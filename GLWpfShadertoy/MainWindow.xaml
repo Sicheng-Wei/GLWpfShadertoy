@@ -52,7 +52,7 @@
         <Border x:Name="FuncDock" Grid.Row="1" Background="#5d6b99" Margin="8, 8, 8, 8">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="256"/>
+                    <ColumnDefinition Width="512"/>
                     <ColumnDefinition Width="1.0*"/>
                 </Grid.ColumnDefinitions>
                 
@@ -65,7 +65,6 @@
                                            KeyDown="Handle_KeyDown" 
                                            KeyUp="Handle_KeyUp"
                                            Margin="4, 4, 4, 4" />
-                <TextBlock Grid.Column="1" x:Name="GLScreenTime" Width="100" Height="20" Background="#c1cbd7" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0, 0, 4, 4"/> 
             </Grid>
         </Border>
 

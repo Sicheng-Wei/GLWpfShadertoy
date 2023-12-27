@@ -1,8 +1,6 @@
-﻿#version 460 core
+﻿#version 330 core
 
 // WPF-Shadertoy Transfer Macros
-# define mainImage main
-
 uniform vec2    iResolution;
 uniform float   iTime;
 uniform vec3    iMouse;             // TODO; Add Mouse
@@ -46,7 +44,7 @@ vec3 mapSphere( in vec3 p )
 // TODO: Ray-Marching for Gas Planet
 
 
-void mainImage( )
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
     // Screen Normalization
     vec2 iScreenNorm = ( 2. * fragCoord.xy - iResolution.xy ) / iResolution.x;
@@ -64,7 +62,11 @@ void mainImage( )
     fragColor = vec4( 0 );
     if ( dist >= 0. ) {
       vec3 q = camSite - sphParams.xyz + camDir * dist;
-      // fragColor = vec4( mapSphere( q ), 1. );
-      fragColor = vec4( 1., 1., 1., 1. );
+      fragColor = vec4( mapSphere( q ), 1. );
+      // fragColor = vec4( 1., 1., 1., 1. );
     }
+}
+
+void main(){
+    mainImage(fragColor, fragCoord);
 }

@@ -101,10 +101,10 @@ namespace GLWpfShadertoy
             ViewUpdate();
             GLSLPort.Render(data, stats);
             FrameRate.Text = CurrentGLState.iTime.ToString("00000.00000");
-            
+
             // FrameRate.Text += "(" + CurrentGLState.iMouse[0].ToString() + ", " + CurrentGLState.iMouse[1].ToString() + ")";
             FrameRate.Text += "\n" + (1.0f / ((DateTime.Now.Ticks - StartTick) / 1e7f - CurrentGLState.iTime)).ToString();
-            
+
             CurrentGLState.iInitialize = true;
         }
 
@@ -173,8 +173,8 @@ namespace GLWpfShadertoy
 
             var settings = new GLWpfControlSettings
             {
-                MajorVersion = 4,
-                MinorVersion = 6,
+                MajorVersion = 3,
+                MinorVersion = 3,
             };
             GLScreen.Start(settings);
         }
